@@ -13,18 +13,16 @@ return new class extends Migration
     {
         Schema::create('penanganan_kasus_pskiaters', function (Blueprint $table) {
             $table->increments('id_penanganan_kasus_psikiater');
-            $table->string('tindakan_tindak_lanjut', 255);
-            $table->string('kategori_tindak_lanjut', 255);
-            $table->string('jenis_tindak_lanjutan', 255);
             $table->date('tanggal');
+            $table->string('diagnosis_awal', 255);
+            $table->string('terapi_diberikan', 255);
+            $table->string('resep_obat', 255);
+            $table->string('hasil_konsul', 255);
+            $table->boolean('status_penanganan');
             $table->integer('id_siswa')->unsigned();
-            $table->integer('id_guru')->unsigned();
-            $table->integer('id_riwayat_bk')->unsigned();
-            $table->integer('id_pelanggaran')->unsigned();
+            $table->integer('id_spesialis_kejiwaan')->unsigned();
             $table->foreign('id_siswa')->references('id_siswa')->on('siswas')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_riwayat_bk')->references('id_riwayat_bk')->on('riwayat_bks')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_pelanggaran')->references('id_pelanggaran')->on('pelanggarans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_spesialis_kejiwaan')->references('id_spesialis_kejiwaan')->on('spesialis_kejiwaans')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -9,38 +9,54 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class WaliKelasSeeder extends Seeder
+class  BkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Role::create(['name' => 'WaliKelas','guard_name' => 'web',]);
+        Role::create(['name' => 'BK','guard_name' => 'web',]);
                 $data = [
                     [
-                        'username' => 'Putri',
+                        'username' => 'Lina',
                         'password' => Hash::make('konseling25'),
-                        'nip' => '0958765667300023',
-                        'nama_guru' => 'Putri Sekar Ayu, S.Pd',
-                        'jabatan' => 'Wali Kelas XI TKJ 3',
+                        'nip' => '196827052007012006',
+                        'nama_guru' => 'Lina Elyana, S.Pd., MM.Pd',
+                        'jabatan' => 'Guru BK',
                         'jenis_kelamin' =>'P',
                     ],
                     [
-                        'username' => 'Ahmad',
+                       'username' => 'Dian',
                         'password' => Hash::make('konseling25'),
-                        'nip' => '198309192010011011',
-                        'nama_guru' => 'Ahmad Irsan S, S.Pd',
-                        'jabatan' => 'Wali Kelas XI APHP 2',
+                        'nip' => '-',
+                        'nama_guru' => 'Dian Rusdianto, S.Pd',
+                        'jabatan' => 'Guru BK',
                         'jenis_kelamin' =>'L',
                     ],
                     [
-                        'username' => 'Rusli',
+                        'username' => 'Yuli',
                         'password' => Hash::make('konseling25'),
                         'nip' => '-',
-                        'nama_guru' => 'Rusli Haruna, S.Kom',
-                        'jabatan' => 'Wali Kelas XII TKJ 4',
-                        'jenis_kelamin' =>'L',
+                        'nama_guru' => 'Yuliastuti Dewi Y, S.Si',
+                        'jabatan' => 'Guru BK',
+                        'jenis_kelamin' =>'P',
+                    ],
+                    [
+                        'username' => 'Desy',
+                        'password' => Hash::make('konseling25'),
+                        'nip' => '-',
+                        'nama_guru' => 'Desy Rosita Nuriswandi, S.Pd',
+                        'jabatan' => 'Guru BK',
+                        'jenis_kelamin' =>'P',
+                    ],
+                    [
+                        'username' => 'Yani',
+                        'password' => Hash::make('konseling25'),
+                        'nip' => '-',
+                        'nama_guru' => 'Yani Agustiani, S.Pd',
+                        'jabatan' => 'Guru BK',
+                        'jenis_kelamin' =>'P',
                     ],
                 ];
         
@@ -61,7 +77,7 @@ class WaliKelasSeeder extends Seeder
                         ],
                     ]);
         
-                    $user->assignRole('WaliKelas');
+                    $user->assignRole('BK');
                 }
     }
 }

@@ -16,10 +16,10 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Role::create([
-        //     'name' => 'Admin',
-        //     'guard_name' => 'web'
-        // ]);
+        Role::create([
+            'name' => 'Admin',
+            'guard_name' => 'web'
+        ]);
         
         $data = [
             [
