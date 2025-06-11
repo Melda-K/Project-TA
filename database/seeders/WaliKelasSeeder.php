@@ -19,11 +19,27 @@ class WaliKelasSeeder extends Seeder
         Role::create(['name' => 'WaliKelas','guard_name' => 'web',]);
                 $data = [
                     [
-                        'username' => 'Putri',
+                        'username' => 'Imas',
                         'password' => Hash::make('konseling25'),
-                        'nip' => '0958765667300023',
-                        'nama_guru' => 'Putri Sekar Ayu, S.Pd',
-                        'jabatan' => 'Wali Kelas XI TKJ 3',
+                        'nip' => '-',
+                        'nama_guru' => 'Hj.Imas Hartina, S.P',
+                        'jabatan' => 'Wali Kelas ATPH',
+                        'jenis_kelamin' =>'P',
+                    ],
+                    [
+                        'username' => 'Diyah',
+                        'password' => Hash::make('konseling25'),
+                        'nip' => '-',
+                        'nama_guru' => 'Diyah Widyawati, S.Hut., M.P',
+                        'jabatan' => 'Wali Kelas ATPH',
+                        'jenis_kelamin' =>'P',
+                    ],
+                    [
+                        'username' => 'Meli',
+                        'password' => Hash::make('konseling25'),
+                        'nip' => '-',
+                        'nama_guru' => 'Meli Sugiasih, S.Pd., M.MPd',
+                        'jabatan' => 'Wali Kelas APHP',
                         'jenis_kelamin' =>'P',
                     ],
                     [

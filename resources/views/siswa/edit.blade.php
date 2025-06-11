@@ -1,54 +1,57 @@
-<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+@foreach($siswas as $data)
+<div class="modal fade" id="exampleModal_{{$data->id_siswa}}" tabindex="-1" aria-labelledby="exampleModalLabel_{{$data->id_siswa}}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 font-bold" id="tambahModalLabel">TAMBAH DATA SISWA</h1>
+                <h1 class="modal-title fs-5 font-bold" id="exampleModalLabel_{{$data->id_siswa}}">EDIT DATA SISWA</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('siswa.store') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
+                <form method="post" action="{{ route('siswa.update', $data->id_siswa) }}" enctype="multipart/form-data" class="mt-6 space-y-6">
                     @csrf
+                    @method('PATCH')
+
                     <div class="max-w-xl">
                         <x-input-label for="nama_siswa" value="NAMA SISWA" />
-                        <x-text-input id="nama_siswa" type="text" name="nama_siswa" class="mt-1 block w-full" value="{{ old('nama_siswa')}}" required />
+                        <x-text-input id="nama_siswa" type="text" name="nama_siswa" class="mt-1 block w-full" value="{{ old('nama_siswa', $data->nama_siswa)}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('nama_siswa')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="nis" value="NIS" />
-                        <x-text-input id="nis" type="text" name="nis" class="mt-1 block w-full" value="{{ old('nis')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nip')" />
+                        <x-text-input id="nis" type="text" name="nis" class="mt-1 block w-full" value="{{ old('nis', $data->nis)}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('nis')" />
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="ttl" value="TEMPAT TANGGAL LAHIR" />
-                        <x-text-input id="ttl" type="text" name="ttl" class="mt-1 block w-full" value="{{ old('ttl')}}" required />
+                        <x-input-label for="ttl" value="TTL" />
+                        <x-text-input id="ttl" type="text" name="ttl" class="mt-1 block w-full" value="{{ old('ttl', $data->ttl)}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('ttl')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="jenis_kelamin" value="JENIS KELAMIN" />
                         <x-select-input id="jenis_kelamin" name="jenis_kelamin" class="mt-1 block w-full" required autocomplete>
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
-                            <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-Laki</option>
+                            <option value="P" {{ old('jenis_kelamin',  $data->jenis_kelamin) === 'P' ? 'selected' : '' }}>Perempuan</option>
+                            <option value="L" {{ old('jenis_kelamin',  $data->jenis_kelamin) === 'L' ? 'selected' : '' }}>Laki-Laki</option>
                         </x-select-input>
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="agama" value="AGAMA" />
-                        <x-text-input id="agama" type="text" name="agama" class="mt-1 block w-full" value="{{ old('agama')}}" required />
+                        <x-text-input id="agama" type="text" name="agama" class="mt-1 block w-full" value="{{ old('agama', $data->agama)}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('agama')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="pendik_sebelumnya" value="PENDIDIKAN SEBELUMNYA" />
-                        <x-text-input id="pendik_sebelumnya" type="text" name="pendik_sebelumnya" class="mt-1 block w-full" value="{{ old('pendik_sebelumnya')}}" />
+                        <x-text-input id="pendik_sebelumnya" type="text" name="pendik_sebelumnya" class="mt-1 block w-full" value="{{ old('pendik_sebelumnya', $data->pendik_selanjutnya)}}" />
                         <x-input-error class="mt-2" :messages="$errors->get('pendik_sebelumnya')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="jmlh_sodara" value="ANAK KE" />
-                        <x-text-input id="jmlh_sodara" type="text" name="jmlh_sodara" class="mt-1 block w-full" value="{{ old('jmlh_sodara')}}" />
+                        <x-text-input id="jmlh_sodara" type="text" name="jmlh_sodara" class="mt-1 block w-full" value="{{ old('jmlh_sodara', $data->jmlh_sodara)}}" />
                         <x-input-error class="mt-2" :messages="$errors->get('jmlh_sodara')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="alamat" value="ALAMAT" />
-                        <x-text-input id="alamat" type="text" name="alamat" class="mt-1 block w-full" value="{{ old('alamat')}}" required />
+                        <x-text-input id="alamat" type="text" name="alamat" class="mt-1 block w-full" value="{{ old('alamat', $data->alamat)}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('alamat')" />
                     </div>
                     <div class="row g-3">
@@ -74,14 +77,15 @@
                         </div>
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="wali_siswa" value="NAMA WALI SISWA" />
-                        <x-text-input id="wali_siswa" type="text" name="wali_siswa" class="mt-1 block w-full" value="{{ old('wali_siswa')}}" />
+                        <x-input-label for="wali_siswa" value="WALI SISWA" />
+                        <x-text-input id="wali_siswa" type="text" name="wali_siswa" class="mt-1 block w-full" value="{{ old('wali_siswa', $data->wali_siswa)}}" />
                         <x-input-error class="mt-2" :messages="$errors->get('wali_siswa')" />
                     </div>
+
                     <div class="max-w-xl">
                         <x-input-label for="kelas" value="KELAS" />
                         <x-select-input id="kelas" name="kelas" class="mt-1 block w-full" required>
-                            <option value="">Pilih Kelas</option>
+                            <option value="">PILIH KELAS</option>
                             <option value="X ATPH" {{ old('kelas') === 'X' ? 'selected' : '' }}>X ATPH</option>
                             <option value="X APHP" {{ old('kelas') === 'X' ? 'selected' : '' }}>X APHP</option>
                             <option value="X TKJ" {{ old('kelas') === 'X' ? 'selected' : '' }}>X TKJ</option>
@@ -104,6 +108,7 @@
                             <option value="XII APAT" {{ old('kelas') === 'XII' ? 'selected' : '' }}>XII APAT</option>
                         </x-select-input>
                     </div>
+
                     <div class="max-w-xl">
                         <x-input-label for="id_guru" value="WALI KELAS" />
                         <x-select-input id="id_guru" name="id_guru" class="mt-1 block w-full" required>
@@ -114,6 +119,7 @@
                         </x-select-input>
                         <x-input-error class="mt-2" :messages="$errors->get('id_guru')" />
                     </div>
+
                     <div class="max-w-xl">
                         <x-input-label for="tahun_pelajaran" value="TAHUN PELAJARAN" />
                         <x-select-input id="tahun_pelajaran" name="tahun_pelajaran" class="mt-1 block w-full" required autocomplete>
@@ -127,7 +133,13 @@
                         <x-primary-button name="save" value="true">Simpan</x-primary-button>
                     </div>
                 </form>
+                </form>
             </div>
         </div>
     </div>
 </div>
+@endforeach
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+@endsection

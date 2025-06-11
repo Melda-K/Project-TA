@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @include('jadwalbk.create')
-    @include('jadwalbk.edit')
-    @include('jadwalbk.delete')
+    @include('pelanggaran.create')
+    <!-- @include('pelanggaran.edit')
+    @include('pelanggaran.delete') -->
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('JADWAL KONSELING') }}
+            {{ __('DATA PELANGGARAN') }}
         </h2>
     </x-slot>
 
@@ -19,21 +19,23 @@
                         <x-slot name="header">
                             <tr class="bg-gray-400 text-center">
                                 <th>NO</th>
-                                <th>NAMA GURU BK</th>
-                                <th>NAMA KONSELOR</th>
-                                <th>HARI</th>
-                                <th>JAM</th>
+                                <th>TANGGAL</th>
+                                <th>NAMA SISWA</th>
+                                <th>KELAS</th>
+                                <th>JENIS PELANGGARAN</th>
+                                <th>SALDO</th>
                                 <th>AKSI</th>
                             </tr>
                         </x-slot>
                         @php $num = 1; @endphp
-                        @foreach ($jadwalbk as $data)
+                        @foreach ($pelanggaran as $data)
                         <tr class="text-center">
                             <td>{{ $num++ }}</td>
-                            <td>{{ $data->guru->nama_guru }}</td>
-                             <td>{{ $data->spesialis->nama }}</td>
-                            <td>{{ $data->hari}}</td>
-                            <td>{{ $data->jam}}</td>
+                            <td>{{ $data->tanggal }}</td>
+                            <td>{{ $data->nama_siswa }}</td>
+                            <td>{{ $data->kelas}}</td>
+                            <td>{{ $data->jenis_pelanggaran}}</td>
+                            <td>{{ $data->saldo}}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $data->id_jadwal }}"><i class="fa-solid fa-pen-to-square"></i>
                                 </button>

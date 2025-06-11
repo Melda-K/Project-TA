@@ -10,6 +10,7 @@ class Siswa extends Model
 {
     use HasFactory;
     protected $table='siswas';
+    protected $primaryKey = 'id_siswa';
 
     protected $fillable = [
 
@@ -29,11 +30,17 @@ class Siswa extends Model
         'kelas',
         'jenis_kelamin',
         'tahun_pelajaran',
-        'id_wali_kelas',
+        'id_user',
+        'id_guru'
     ];
 
-    public function walikelas(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Guru::class, 'id_wali_kelas');
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    }
+
+    public function guru(): BelongsTo
+    {
+        return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
     }
 }

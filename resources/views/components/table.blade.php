@@ -1,4 +1,3 @@
-
 @props(['header' => '', 'tableId' => ''])
 
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
@@ -32,7 +31,7 @@
 
         // Penambahan kelas ke elemen th dan td
         document.querySelectorAll('#{{ $tableId }} th').forEach(el => el.classList.add("px-6", "py-3",
-            "text-left", "text-xs", "font-medium", "text-gray-500", "uppercase"));
+            "text-center", "text-xs", "font-medium", "text-gray-500", "uppercase"));
         document.querySelectorAll('#{{ $tableId }} td').forEach(el => el.classList.add("px-6", "py-4",
             "whitespace-nowrap", "text-sm", "font-medium", "text-black", "dark:text-gray-200"));
     });

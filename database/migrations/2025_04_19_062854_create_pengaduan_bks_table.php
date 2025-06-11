@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('jenis_pengaduan', 50);
             $table->text('isi_keluhan');
             $table->integer('id_siswa')->unsigned();
-            $table->integer('id_guru')->unsigned();
             $table->foreign('id_siswa')->references('id_siswa')->on('siswas')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('id_guru')->unsigned();
             $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

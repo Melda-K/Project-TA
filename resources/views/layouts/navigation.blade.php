@@ -30,6 +30,24 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('spesialis.index')" :active="request()->routeIs('spesialis.index') || request()->routeIs('spesialis.create')">
+                        {{ __('DATA SPESIALIS KEJIWAAN') }}
+                    </x-nav-link>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('jadwalbk.index')" :active="request()->routeIs('jadwalbk.index') || request()->routeIs('jadwalbk.create')">
+                        {{ __('DATA JADWAL KONSELING') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('pelanggaran.index')" :active="request()->routeIs('pelanggaran.index') || request()->routeIs('pelanggaran.create')">
+                        {{ __('DATA PELANGGARAN') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('chatify')" :active="request()->routeIs('chatify')">
                         {{ __('TANYA SPESIALIS KEJIWAAN') }}
                     </x-nav-link>

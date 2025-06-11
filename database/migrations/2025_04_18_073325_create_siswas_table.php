@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('siswas', function (Blueprint $table) {
             $table->increments('id_siswa');
             $table->string('nama_siswa', 50);
-            $table->string('nis',50);
-            $table->string('ttl',50);
+            $table->string('nis', 50);
+            $table->string('ttl', 50);
             $table->char('jenis_kelamin', 2);
             $table->string('agama', 10);
             $table->string('pendik_sebelumnya')->nullable();
@@ -27,7 +27,9 @@ return new class extends Migration
             $table->string('pekerjaan_ibu', 25)->nullable();
             $table->string('wali_siswa')->nullable();
             $table->string('kelas', 25);
-            $table->integer('tahun_pelajaran');
+            $table->char('tahun_pelajaran', 4);
+            $table->unsignedInteger('id_guru');
+            $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -65,8 +65,14 @@ class SiswaController extends Controller
             'wali_siswa' => 'max:100',
             'kelas' => 'required|max:150',
             'tahun_pelajaran' => 'required|max:100',
-            'id_wali_kelas' => 'required|max:100',
+            'id_guru' => 'required',
         ]);
+
+        $user = new User();
+        $user->name = $validate['nama_siswa'];
+        $user->username = $validate['nis'];
+        $user->password = Hash::make('konseling25');
+        $user->save();
 
         $siswa = Siswa::create([
 
@@ -85,7 +91,9 @@ class SiswaController extends Controller
             'wali_siswa' => $validate['wali_siswa'],
             'kelas' => $validate['kelas'],
             'tahun_pelajaran' => $validate['tahun_pelajaran'],
-            'id_wali_kelas' => $validate['id_wali_kelas'],
+            'id_guru' => $validate['id_guru'],
+            'id_user' => $user->id,
+
         ]);
 
 
@@ -100,18 +108,18 @@ class SiswaController extends Controller
             return redirect()->route('siswa.create')->with($notificaton);
     }
 
-    public function edit(string $id)
+    public function edit(string $id_siswa)
     {
-        $data['siswa'] = Siswa::findOrFail($id);
+        $data['siswa'] = Siswa::findOrFail($id_siswa);
         $data['siswas'] = Siswa::all();
         $data['guru'] = Guru::pluck('name', 'id');
 
         return view('siswa.edit', $data);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id_siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::findOrFail($id_siswa);
 
         $validate = $request->validate([
 
@@ -130,7 +138,6 @@ class SiswaController extends Controller
             'wali_siswa' => 'max:100',
             'kelas' => 'required|max:150',
             'tahun_pelajaran' => 'required|max:100',
-            'id_wali_kelas' => 'required|max:100',
         ]);
 
         $siswa->update([
@@ -150,7 +157,6 @@ class SiswaController extends Controller
             'wali_siswa' => $validate['wali_siswa'],
             'kelas' => $validate['kelas'],
             'tahun_pelajaran' => $validate['tahun_pelajaran'],
-            'id_wali_kelas' => $validate['id_wali_kelas'],
         ]);
 
         $notificaton = array(
@@ -160,9 +166,9 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')->with($notificaton);
     }
-    public function destroy(string $id)
+    public function destroy(string $id_siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::findOrFail($id_siswa);
 
         $siswa->delete();
 

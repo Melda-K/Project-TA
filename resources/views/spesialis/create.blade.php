@@ -7,10 +7,8 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('guru.store') }}" enctype="multipart/form-data"
+                <form method="post" action="{{ route('spesialis.store') }}" enctype="multipart/form-data"
                     class="mt-6 space-y-6">
-                    @csrf
-
                     @csrf
                     <div class="max-w-xl">
                         <x-input-label for="username" value="NAMA PENGGUNA" />
@@ -18,25 +16,16 @@
                         <x-input-error class="mt-2" :messages="$errors->get('username')" />
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="nip" value="NIP" />
-                        <x-text-input id="nip" type="text" name="nip" class="mt-1 block w-full" value="{{ old('nip')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nip')" />
+                        <x-input-label for="nama" value="NAMA" />
+                        <x-text-input id="nama" type="text" name="nama" class="mt-1 block w-full" value="{{ old('nama')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('nama')" />
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="nama_guru" value="NAMA GURU" />
-                        <x-text-input id="nama_guru" type="text" name="nama_guru" class="mt-1 block w-full" value="{{ old('nama_guru')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nama_guru')" />
-                    </div>
-                    <div class="max-w-xl">
-                        <x-input-label for="jabatan" value="JABATAN" />
-                        <x-select-input id="jabatan" name="jabatan" class="mt-1 block w-full" required>
-                            <option value="">Pilih Jabatan</option>
-                            <option value="Kepala Sekolah" {{ old('jabatan') === 'Kepala Sekolah' ? 'selected' : '' }}>Kepala Sekolah</option>
-                            <option value="Guru BK" {{ old('jabatan') === 'Guru BK' ? 'selected' : '' }}>Guru BK</option>
-                            <option value="Wali Kelas X" {{ old('jabatan') === 'Wali Kelas X' ? 'selected' : '' }}>Wali Kelas X</option>
-                            <option value="Wali Kelas XI" {{ old('jabatan') === 'Wali Kelas XI' ? 'selected' : '' }}>Wali Kelas XI</option>
-                            <option value="Wali Kelas XII" {{ old('jabatan') === 'Wali Kelas XII' ? 'selected' : '' }}>Wali Kelas XII</option>
-                            <option value="Guru Pengajar" {{ old('jabatan') === 'Guru Pengajar' ? 'selected' : '' }}>Guru Pengajar</option>
+                        <x-input-label for="spesialis" value="SPESIALIS" />
+                        <x-select-input id="spesialis" name="spesialis" class="mt-1 block w-full" required>
+                            <option value="">Pilih Spesialis</option>
+                            <option value="Psikolog" {{ old('spesialis') === 'Psikolog' ? 'selected' : '' }}>Psikolog</option>
+                            <option value="Psikiater" {{ old('spesialis') === 'Psikiater' ? 'selected' : '' }}>Psikiater</option>
                         </x-select-input>
                     </div>
                     <div class="max-w-xl">
