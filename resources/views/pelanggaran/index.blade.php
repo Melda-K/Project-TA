@@ -1,8 +1,9 @@
 <x-app-layout>
 
     @include('pelanggaran.create')
-    <!-- @include('pelanggaran.edit')
-    @include('pelanggaran.delete') -->
+    @include('pelanggaran.edit')
+    @include('pelanggaran.delete')
+    @include('pelanggaran.detail')
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -19,28 +20,27 @@
                         <x-slot name="header">
                             <tr class="bg-gray-400 text-center">
                                 <th>NO</th>
-                                <th>TANGGAL</th>
                                 <th>NAMA SISWA</th>
                                 <th>KELAS</th>
-                                <th>JENIS PELANGGARAN</th>
-                                <th>SALDO</th>
+                                <th>TANGGAL</th>
+                                <th>NOMOR POIN PELANGGARAN</th>
+                                <th>SALDO PELANGGARAN</th>
                                 <th>AKSI</th>
                             </tr>
                         </x-slot>
                         @php $num = 1; @endphp
-                        @foreach ($pelanggaran as $data)
+                        @foreach ($pelanggarans as $data)
                         <tr class="text-center">
                             <td>{{ $num++ }}</td>
+                            <td>{{ $data->siswa->nama_siswa }}</td>
+                            <td>{{ $data->siswa->kelas}}</td>
                             <td>{{ $data->tanggal }}</td>
-                            <td>{{ $data->nama_siswa }}</td>
-                            <td>{{ $data->kelas}}</td>
-                            <td>{{ $data->jenis_pelanggaran}}</td>
-                            <td>{{ $data->saldo}}</td>
+                            <td>{{ $data->jmlh_pelanggaran}}</td>
+                            <td>{{ $data->saldo_pelanggaran}}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $data->id_jadwal }}"><i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal_{{ $data->id_jadwal }}"><i class="fa-solid fa-trash-can"></i>
-                                </button>
+                                <button tag="a" type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal_{{ $data->id_pelanggaran }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal_{{ $data->id_pelanggaran }}"><i class="fa-solid fa-trash-can"></i></button>
+                                <button tag="a" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#openModel_{{ $data->id_pelanggaran }}"><i class="fa-solid fa-folder"></i></button>
                             </td>
                         </tr>
                         @endforeach

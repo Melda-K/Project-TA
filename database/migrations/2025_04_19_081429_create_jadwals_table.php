@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('jadwals', function (Blueprint $table) {
             $table->increments('id_jadwal');
             $table->string('hari', 10);
-            $table->string('jam');
-            $table->integer('id_spesialis_kejiwaan')->unsigned();
             $table->integer('id_guru')->unsigned();
-            $table->foreign('id_spesialis_kejiwaan')->references('id_spesialis_kejiwaan')->on('spesialis_kejiwaans')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

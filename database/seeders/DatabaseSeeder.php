@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Kriteria;
 use App\Models\MataPelajaran;
 use App\Models\Siswa;
+use App\Models\Spesialis;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             BkSeeder::class,
             WaliKelasSeeder::class,
             KepsekSeeder::class,
+            SpesialisSeeder::class,
         ]);
     }
 }

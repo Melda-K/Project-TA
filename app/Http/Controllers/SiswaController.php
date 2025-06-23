@@ -180,13 +180,13 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')->with($notificaton);
     }
 
-    public function filter(Request $request)
-    {
-        $kelas = $request->input('kelas');
-        $siswas = Siswa::where('kelas', $kelas)->get();
+    // public function filter(Request $request)
+    // {
+    //     $kelas = $request->input('kelas');
+    //     $siswas = Siswa::where('kelas', $kelas)->get();
 
-        return view('siswa.filter', compact('siswas'));
-    }
+    //     return view('siswa.filter', compact('siswas'));
+    // }
 
     public function show($nis): JsonResponse
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JadwalbkController extends Controller
 {
@@ -24,20 +25,16 @@ class JadwalbkController extends Controller
     {
         $validate = $request->validate([
             'hari' => 'required|max:150',
-            'jam' => 'required|max:150',
             'id_guru' => 'required',
-            'id_spesialis_kejiwaan' => 'required',
         ]);
 
         $jadwalbk = Jadwal::create([
             'hari' => $validate['hari'],
-            'jam' => $validate['jam'],
             'id_guru' => $validate['id_guru'],
-            'id_spesialis_kejiwaan' => $validate['id_spesialis_kejiwaan'],
         ]);
 
         $notification = array(
-            'message' => "Data jadwal berhasil ditambahkan",
+            'message' => "Data jadwal BK berhasil ditambahkan",
             'alert-type' => 'success'
         );
 
@@ -55,18 +52,14 @@ class JadwalbkController extends Controller
 
         $validate = $request->validate([
             'hari' => 'required|max:150',
-            'jam' => 'required|max:150',
             'id_guru' => 'required',
-            'id_spesialis_kejiwaan' => 'required',
         ]);
 
         $jadwalbk = Jadwal::findOrFail($id_jadwal);
 
         $jadwalbk->update([
             'hari' => $validate['hari'],
-            'jam' => $validate['jam'],
             'id_guru' => $validate['id_guru'],
-            'id_spesialis_kejiwaan' => $validate['id_spesialis_kejiwaan'],
         ]);
 
         $notificaton = array(
@@ -83,7 +76,7 @@ class JadwalbkController extends Controller
         $jadwalbk->delete();
 
         $notificaton = array(
-            'message' => 'Data jadwal berhasil dihapus',
+            'message' => 'Data jadwal BK berhasil dihapus',
             'alert-type' => 'success'
         );
 

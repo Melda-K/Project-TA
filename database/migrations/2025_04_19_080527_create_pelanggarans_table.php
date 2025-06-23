@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('pelanggarans', function (Blueprint $table) {
             $table->increments('id_pelanggaran');
-            $table->string('nama_wali_kelas', 50);
             $table->date('tanggal');
             $table->integer('point_pelanggaran');
             $table->integer('jmlh_pelanggaran');
-            $table->integer('saldo_pelanggaran');
-            $table->string('keterangan', 255);
+            $table->integer('saldo_pelanggaran')->nullable();
+            $table->string('keterangan', 255)->nullable();
             $table->integer('id_siswa')->unsigned();
             $table->foreign('id_siswa')->references('id_siswa')->on('siswas')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('id_guru')->unsigned();
+            $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

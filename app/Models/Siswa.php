@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Siswa extends Model
 {
     use HasFactory;
-    protected $table='siswas';
+    protected $table = 'siswas';
     protected $primaryKey = 'id_siswa';
 
     protected $fillable = [
@@ -42,5 +42,10 @@ class Siswa extends Model
     public function guru(): BelongsTo
     {
         return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
+    }
+
+    public function pelanggarans()
+    {
+        return $this->hasMany(Pelanggaran::class, 'id_siswa');
     }
 }

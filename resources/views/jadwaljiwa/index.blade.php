@@ -1,12 +1,12 @@
 <x-app-layout>
 
-    @include('jadwalbk.create')
-    @include('jadwalbk.edit')
-    @include('jadwalbk.delete')
+    @include('jadwaljiwa.create')
+    @include('jadwaljiwa.edit')
+    @include('jadwaljiwa.delete')
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('JADWAL KONSELING') }}
+            {{ __('JADWAL SPESIALIS KEJIWAAN') }}
         </h2>
     </x-slot>
 
@@ -19,21 +19,25 @@
                         <x-slot name="header">
                             <tr class="bg-gray-400 text-center">
                                 <th>NO</th>
-                                <th>NAMA GURU BK</th>
+                                <th>NAMA KONSELOR</th>
+                                <th>KATEGORI JADWAL</th>
                                 <th>HARI</th>
+                                <th>JAM</th>
                                 <th>AKSI</th>
                             </tr>
                         </x-slot>
                         @php $num = 1; @endphp
-                        @foreach ($jadwalbk as $data)
+                        @foreach ($jadwaljiwa as $data)
                         <tr class="text-center">
                             <td>{{ $num++ }}</td>
-                            <td>{{ $data->guru->nama_guru }}</td>
-                            <td>{{ $data->hari}}</td>
+                            <td>{{ $data->spesialis->nama }}</td>
+                            <td>{{ $data->kategori_jadwal }}</td>
+                            <td>{{ $data->hari }}</td>
+                            <td>{{ $data->jam}}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $data->id_jadwal }}"><i class="fa-solid fa-pen-to-square"></i>
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $data->id_jadwaljiwa }}"><i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal_{{ $data->id_jadwal }}"><i class="fa-solid fa-trash-can"></i>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal_{{ $data->id_jadwaljiwa }}"><i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
                         </tr>

@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\JadwalbkController;
+use App\Http\Controllers\JadwaljiwaController;
 use App\Http\Controllers\PelanggaranController;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\PribasosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SpesialisController;
+use App\Models\Pelanggaran;
 use App\Models\Spesialis;
 use Illuminate\Support\Facades\Route;
 
@@ -41,8 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/siswa/{id_siswa}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
     Route::get('/filter', [SiswaController::class, 'filter'])->name('siswa.filter');
     Route::get('/siswa/{nis}', [SiswaController::class, 'show']);
-    Route::get('/searchSiswa', [SiswaController::class, 'searchSiswa'])->name('searchSiswa');
-    
 });
 
 Route::middleware('auth')->group(function () {
@@ -64,8 +66,38 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/jadwaljiwa', [JadwaljiwaController::class, 'index'])->name('jadwaljiwa.index');
+    Route::get('/jadwaljiwa/create', [JadwaljiwaController::class, 'create'])->name('jadwaljiwa.create');
+    Route::post('/jadwaljiwa', [JadwaljiwaController::class, 'store'])->name('jadwaljiwa.store');
+    Route::get('/jadwaljiwa/{id_jadwaljiwa}/edit', [JadwaljiwaController::class, 'edit'])->name('jadwaljiwa.edit');
+    Route::match(['put', 'patch'], '/jadwaljiwa/{id_jadwaljiwa}', [JadwaljiwaController::class, 'update'])->name('jadwaljiwa.update');
+    Route::delete('/jadwaljiwa/{id_jadwaljiwa}', [JadwaljiwaController::class, 'destroy'])->name('jadwaljiwa.destroy');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/pelanggaran', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
+    Route::get('/pelanggaran/create', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
+    Route::post('/pelanggaran', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
+    Route::get('/pelanggaran/{id_pelanggaran}/edit', [PelanggaranController::class, 'edit'])->name('pelanggaran.edit');
+    Route::match(['put', 'patch'], '/pelanggaran/{id_pelanggaran}', [PelanggaranController::class, 'update'])->name('pelanggaran.update');
+    Route::delete('/pelanggaran/{id_pelanggaran}', [PelanggaranController::class, 'destroy'])->name('pelanggaran.destroy');
+    Route::get('/pelanggaran/{id_pelanggaran}/detail', [PelanggaranController::class, 'show'])->name('pelanggaran.detail');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/pribasos', [PribasosController::class, 'index'])->name('pribasos.index');
+    Route::get('/pribasos/create', [PribasosController::class, 'create'])->name('pribasos.create');
+    Route::post('/pribasos', [PribasosController::class, 'store'])->name('pribasos.store');
+    Route::get('/pribasos/{id_pribadi}/edit', [PribasosController::class, 'edit'])->name('pribasos.edit');
+    Route::match(['put', 'patch'], '/pribasos/{id_pribadi}', [PribasosController::class, 'update'])->name('pribasos.update');
+    Route::delete('/pribasos/{id_pribadi}', [PribasosController::class, 'destroy'])->name('pribasos.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
+    Route::get('/pengaduan/create', [PengaduanController::class, 'create'])->name('pengaduan.create');
+    Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -11,28 +11,26 @@
                     @csrf
                     @method('PATCH')
                     <div class="max-w-xl">
-                        <x-input-label for="nama_guru" value="NAMA GURU" />
-                        <x-text-input id="nama_guru" type="text" name="nama_guru" class="mt-1 block w-full" value="{{ old('nama_guru', $data->nama_guru)}}"
-                            required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nama_guru')" />
-                    </div>
-                    <div class="max-w-xl">
-                        <x-input-label for="nama" value="NAMA KONSELOR" />
-                        <x-text-input id="nama" type="text" name="nama" class="mt-1 block w-full" value="{{ old('nama', $data->nama)}}"
-                            required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nama_guru')" />
+                        <x-input-label for="id_guru" value="NAMA GURU BK" />
+                        <x-select-input id="id_guru" name="id_guru" class="mt-1 block w-full" required>
+                            <option value="">Pilih Guru BK</option>
+                            <option value="1">Lina Elyana, S.Pd., MM.Pd</option>
+                            <option value="2">Dian Rusdianto, S.Pd</option>
+                            <option value="3">Yuliastuti Dewi Y, S.Si</option>
+                            <option value="4">Desy Rosita Nuriswandi, S.Pd</option>
+                            <option value="5">Yani Agustiani, S.Pd</option>
+                        </x-select-input>
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="hari" value="HARI" />
-                        <x-text-input id="hari" type="text" name="hari" class="mt-1 block w-full" value="{{ old('hari', $data->hari)}}"
-                            required />
-                        <x-input-error class="mt-2" :messages="$errors->get('hari')" />
-                    </div>
-                    <div class="max-w-xl">
-                        <x-input-label for="jam" value="JAM" />
-                        <x-text-input id="jam" type="text" name="jam" class="mt-1 block w-full" value="{{ old('jam', $data->jam)}}"
-                            required />
-                        <x-input-error class="mt-2" :messages="$errors->get('jam')" />
+                        <x-select-input id="hari" name="hari" class="mt-1 block w-full" required>
+                            <option value="">Pilih Hari</option>
+                            <option value="Senin" {{ old('hari') === 'Senin' ? 'selected' : '' }}>Senin</option>
+                            <option value="Selasa" {{ old('hari') === 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                            <option value="Rabu" {{ old('hari') === 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                            <option value="Kamis" {{ old('hari') === 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                            <option value="Jumat" {{ old('hari') === 'Jumat' ? 'selected' : '' }}>Jumat</option>
+                        </x-select-input>
                     </div>
                     <div class="modal-footer">
                         <x-secondary-button tag="a" data-bs-dismiss="modal">Batal</x-secondary-button>
