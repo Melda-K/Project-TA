@@ -2,36 +2,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="tambahModalLabel">TAMBAH DATA</h1>
+                <h1 class="modal-title fs-5 font-bold" id="tambahModalLabel">TAMBAH DATA BELAJAR</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <form method="post" action="{{ route('pelanggaran.store') }}" enctype="multipart/form-data"
-                    class="mt-6 space-y-6">
+                <form method="post" action="{{ route('belajar.store') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
                     @csrf
-
-                    @csrf
-                    <div class="max-w-xl">
-                        @php
-                        use App\Models\Guru;
-                        $guru = Guru::where('jabatan', 'LIKE', '%Wali Kelas%')->get();
-                        @endphp
-
-                        <x-input-label for="id_guru" value="NAMA WALI KELAS" />
-                        <select id="id_guru" name="id_guru" class="block rounded-lg w-full" required>
-                            <option value="">Pilih Wali Kelas</option>
-                            @foreach ($guru as $item)
-                            <option value="{{ $item->id_guru }}">{{ $item->nama_guru }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
                     <div class="max-w-xl">
                         <x-input-label for="tanggal" value="TANGGAL" />
                         <x-text-input id="tanggal" type="date" name="tanggal" class="mt-1 block w-full" value="{{ old('tanggal')}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                     </div>
+
                     @php
                     use App\Models\Siswa;
                     $siswas = Siswa::all();
@@ -43,6 +25,7 @@
                         <option value="{{ $siswa->id_siswa }}">{{ $siswa->nama_siswa }}</option>
                         @endforeach
                     </select>
+
                     <div class="max-w-xl">
                         <x-input-label for="kelas" value="KELAS" />
                         <x-select-input id="kelas" name="kelas" class="mt-1 block w-full" required>
@@ -70,15 +53,31 @@
                         </x-select-input>
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="point_pelanggaran" value="NOMOR POIN PELANGGARAN" />
-                        <x-text-input id="point_pelanggaran" type="text" name="point_pelanggaran" class="mt-1 block w-full" value="{{ old('point_pelanggaran')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('point_pelanggaran')" />
+                        <x-input-label for="permasalahan" value="PERMASALAHAN" />
+                        <x-text-input id="permasalahan" type="text" name="permasalahan" class="mt-1 block w-full" value="{{ old('permasalahan')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('permasalahan')" />
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="jmlh_pelanggaran" value="JUMLAH POIN PELANGGARAN" />
-                        <x-text-input id="jmlh_pelanggaran" type="text" name="jmlh_pelanggaran" class="mt-1 block w-full" value="{{ old('jmlh_pelanggaran')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('jmlh_pelanggaran')" />
+                        <x-input-label for="mapel" value="MAPEL" />
+                        <x-text-input id="mapel" type="text" name="mapel" class="mt-1 block w-full" value="{{ old('mapel')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('mapel')" />
                     </div>
+
+                    <div class="max-w-xl">
+                        @php
+                        use App\Models\Guru;
+                        $guru = Guru::where('jabatan', 'LIKE', '%Guru Matapelajaran%')->get();
+                        @endphp
+
+                        <x-input-label for="id_guru" value="NAMA GURU MATAPELAJARAN" />
+                        <select id="id_guru" name="id_guru" class="block rounded-lg w-full" required>
+                            <option value="">Pilih Guru Matapelajaran</option>
+                            @foreach ($guru as $item)
+                            <option value="{{ $item->id_guru }}">{{ $item->nama_guru }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="max-w-xl">
                         <x-input-label for="keterangan" value="KETERANGAN" />
                         <x-text-input id="keterangan" type="text" name="keterangan" class="mt-1 block w-full" value="{{ old('keterangan')}}" required />

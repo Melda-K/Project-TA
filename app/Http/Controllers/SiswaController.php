@@ -93,9 +93,9 @@ class SiswaController extends Controller
             'tahun_pelajaran' => $validate['tahun_pelajaran'],
             'id_guru' => $validate['id_guru'],
             'id_user' => $user->id,
-
         ]);
 
+        $user->assignRole('siswa');
 
         $notificaton = array(
             'message' => 'Data siswa berhasil ditambahkan!',

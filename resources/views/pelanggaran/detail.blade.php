@@ -34,33 +34,64 @@
                 <br>
 
                 @php
-                $poin = App\Models\Pelanggaran::where('id_siswa', $data->id_siswa)->orderBy('id_siswa')->get();
-                @endphp
+                // Ambil data pelanggaran berdasarkan id_siswa
+                $poin = \App\Models\Pelanggaran::where('id_siswa', $data->id_siswa)
+                ->orderBy('tanggal')
+                ->get();
 
-                <div class="container">
-                    <div class="row fw-bold text-uppercase mb-2">
-                        <div class="col text-center">Tanggal</div>
-                        <div class="col text-center">Nomor Poin Pelanggaran</div>
-                        <div class="col text-center">Jumlah Poin Pelanggaran</div>
-                        <div class="col text-center">Saldo Pelanggaran</div>
-                        <div class="col text-center">Keterangan</div>
-                    </div>
+                // Hitung total poin pelanggaran
+                $totalPelanggaran = $poin->sum('jmlh_pelanggaran');
 
-                    @foreach($poin as $item)
-                    <div class="row text-center">
-                        <div class="col">{{ $item->tanggal }}</div>
-                        <div class="col">{{ $item->point_pelanggaran }}</div>
-                        <div class="col">{{ $item->jmlh_pelanggaran }}</div>
-                        <div class="col">{{ $item->saldo_pelanggaran }}</div>
-                        <div class="col">{{ $item->keterangan ?? '-' }}</div>
-                    </div>
-                    @endforeach
-                </div>
-                <div class="modal-footer">
-                    <x-secondary-button tag="a" data-bs-dismiss="modal">Batal</x-secondary-button>
-                </div>
+                // Tentukan keterangan otomatis berdasarkan total
+                $keteranganOtomatis = '-';
+                if ($totalPelanggaran >= 30 && $totalPelanggaran < 70) {
+                    $keteranganOtomatis='Pemanggilan Orang Tua / Wali' ;
+                    } elseif ($totalPelanggaran>= 70 && $totalPelanggaran <= 100) {
+                        $keteranganOtomatis='Dikembalikan kepada Orang Tua' ;
+                        }
+                        @endphp
+
+                        <div class="container my-4">
+
+                        {{-- Header Tabel --}}
+                        <div class="row fw-bold text-uppercase bg-light border py-2 text-center">
+                            <div class="col">Tanggal</div>
+                            <div class="col">Nomor Poin Pelanggaran</div>
+                            <div class="col">Jumlah Poin Pelanggaran</div>
+                            <div class="col">Saldo Pelanggaran</div>
+                            <div class="col">Keterangan</div>
+                        </div>
+
+                        {{-- Isi Tabel --}}
+                        @forelse($poin as $index => $item)
+                        <div class="row text-center border-bottom py-2">
+                            <div class="col">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</div>
+                            <div class="col">{{ $item->point_pelanggaran }}</div>
+                            <div class="col">{{ $item->jmlh_pelanggaran }}</div>
+                            <div class="col">{{ $item->saldo_pelanggaran }}</div>
+
+                            {{-- Tampilkan keterangan hanya di baris terakhir --}}
+                            <div class="col">
+                                {{ $loop->last ? $keteranganOtomatis : '-' }}
+                            </div>
+                        </div>
+                        @empty
+                        <div class="text-center text-muted py-3">Tidak ada data pelanggaran.</div>
+                        @endforelse
+
+                        {{-- Total Pelanggaran --}}
+                        <div class="row mt-3">
+                            <div class="col text-end">
+                                <strong>Total Pelanggaran: {{ $totalPelanggaran }}</strong>
+                            </div>
+                        </div>
+            </div>
+
+            <div class="modal-footer">
+                <x-secondary-button tag="a" data-bs-dismiss="modal">Batal</x-secondary-button>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endforeach

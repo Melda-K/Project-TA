@@ -1,68 +1,84 @@
 <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="tambahModalLabel">TAMBAH DATA</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <form method="post" action="{{ route('pengaduan.store') }}" enctype="multipart/form-data"
-                    class="mt-6 space-y-6">
+                <form method="POST" action="{{ route('pengaduan.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    @csrf
+                    <p class="fw-bold mb-3">KELOLA DATA PENGADUAN SISWA</p>
 
-                    <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                    <div class="row g-3 mb-3">
+                        <div class="col">
+                            <x-input-label for="nama" value="NAMA" />
+                            <x-text-input id="nama" type="text" name="nama" class="mt-1 block w-full" value="{{ old('nama')}}" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('nama')" />
+                        </div>
+                        <div class="col">
+                            <x-input-label for="tanggal_pengaduan" value="TANGGAL PENGADUAN" />
+                            <x-text-input id="tanggal_pengaduan" type="date" name="tanggal_pengaduan" class="mt-1 block w-full" value="{{ old('tanggal_pengaduan')}}" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('tanggal_pengaduan')" />
+                        </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">NAMA</label>
-                            <input type="text" name="nama" id="nama" class="form-control" required>
+                    <div class="row g-3 mb-3">
+                        <div class="col">
+                            <x-input-label for="id_guru" value="NAMA GURU BK" />
+                            <x-select-input id="id_guru" name="id_guru" class="mt-1 block w-full" required>
+                                <option value="">Pilih Guru BK</option>
+                                <option value="1">Lina Elyana, S.Pd., MM.Pd</option>
+                                <option value="2">Dian Rusdianto, S.Pd</option>
+                                <option value="3">Yuliastuti Dewi Y, S.Si</option>
+                                <option value="4">Desy Rosita Nuriswandi, S.Pd</option>
+                                <option value="5">Yani Agustiani, S.Pd</option>
+                            </x-select-input>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="tanggal_pengaduan" class="form-label">TANGGAL PENGADUAN</label>
-                            <input type="date" name="tanggal_pengaduan" id="tanggal_pengaduan" class="form-control" required>
+                        <div class="col">
+                            <x-input-label for="jenis_pengaduan" value=" JENIS PENGADUAN BK" />
+                            <x-select-input id="jenis_pengaduan" name="jenis_pengaduan" class="mt-1 block w-full" required>
+                                <option value="">Pilih Jenis Bimbingan Konseling</option>
+                                <option value="1">Pribadi</option>
+                                <option value="2">Sosial</option>
+                                <option value="3">Karier</option>
+                                <option value="4">Belajar</option>
+                            </x-select-input>
                         </div>
+                    </div>
 
-                        <div class="max-w-xl">
-                            <x-input-label for="nama_guru" value="NAMA GURU" />
-                            <x-text-input id="nama_guru" type="text" name="nama_guru" class="mt-1 block w-full" value="{{ old('nama_guru')}}" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('nama_guru')" />
-                        </div>
+                    <div class="mb-3">
+                        <x-input-label for="isi_keluhan" value="ISI KELUHAN / PERMASALAHAN" />
+                        <x-text-input id="isi_keluhan" type="text" name="isi_keluhan" class="mt-1 block w-full" value="{{ old('isi_keluhan')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('isi_keluhan')" />
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="jenis_pengaduan" class="form-label">JENIS PENGADUAN</label>
-                            <select name="jenis_pengaduan" id="jenis_pengaduan" class="form-select" required>
-                                <option selected disabled>Pilih Jenis Bimbingan Konseling</option>
-                                <option value="Pribadi">Pribadi</option>
-                                <option value="Sosial">Sosial</option>
-                                <option value="Karir">Karir</option>
-                                <option value="Belajar">Belajar</option>
-                            </select>
-                        </div>
+                    <div class="mb-4">
+                        <x-input-label for="dokumentasi" value="DOKUMENTASI" />
 
-                        <div class="mb-3">
-                            <label for="isi_keluhan" class="form-label">ISI KELUHAN / PERMASALAHAN</label>
-                            <input type="text" name="isi_keluhan" id="isi_keluhan" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dokumentasi" class="form-label">DOKUMENTASI</label>
-                            <small class="d-block text-muted mb-2">
-                                Dokumentasi ini di isi opsional, jika terdapat ada nya gambar atau dokumentasi tentang siswa/i
-                                dalam kasus kenakalan remaja di lingkungan sekolah boleh di kirimkan
-                            </small>
-                            <input type="file" name="dokumentasi" id="dokumentasi" class="form-control">
-                        </div>
+                        <small class="d-block text-muted mb-2">
+                            Dokumentasi ini diisi opsional, jika ada dokumentasi tentang siswa/i
+                            dalam kasus kenakalan remaja di lingkungan sekolah,
+                            <strong>silakan unggah di sini</strong>.
+                        </small>
 
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-dark px-4">KIRIM</button>
-                        </div>
-                    </form>
+                        <input id="dokumentasi" name="dokumentasi" type="file"
+                            class="form-control rounded-md"
+                            style="height: 45px; border: 1px solid #ced4da; border-radius: 0;"
+                            value="{{ old('dokumentasi') }}">
+
+                        <x-input-error class="mt-2" :messages="$errors->get('dokumentasi')" />
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn px-4 py-2 border border-dark" style="background-color: rgba(87, 7, 65, 1); color: white;">
+                            KIRIM
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-

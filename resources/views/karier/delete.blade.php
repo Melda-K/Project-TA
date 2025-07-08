@@ -1,16 +1,16 @@
-@foreach ($pelanggarans as $data)
-<div class="modal fade" id="hapusModal_{{ $data->id_pelanggaran }}" tabindex="-1" aria-labelledby="hapusModalLabel_{{ $data->id_pelanggaran }}" aria-hidden="true">
+@foreach ($karier as $data)
+<div class="modal fade" id="hapusModal_{{ $data->id_karier }}" tabindex="-1" aria-labelledby="hapusModalLabel_{{ $data->id_karier }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title font-bold" id="hapusModalLabel_{{ $data->id_pelanggaran }}">HAPUS DATA PELANGGARAN</h5>
+                <h5 class="modal-title font-bold" id="hapusModalLabel_{{ $data->id_karier }}">HAPUS DATA BK-KARIER</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('pelanggaran.destroy', $data->id_pelanggaran)}}" enctype="multipart/form-data" class="mt-6 space-y-6">
+                <form method="post" action="{{ route('karier.destroy', $data->id_karier)}}" enctype="multipart/form-data" class="mt-6 space-y-6">
                     @csrf
                     @method('delete')
-                    <p>Anda yakin ingin menghapus data {{ $data->siswa->nama_siswa }} ?</p>
+                    <p>Anda yakin ingin menghapus data BK karier atas nama {{ $data->siswa->nama_siswa }} ?</p>
                     <div class="modal-footer">
                         <x-secondary-button tag="a" data-bs-dismiss="modal">Batal</x-secondary-button>
                         <x-primary-button value="true">Hapus</x-primary-button>

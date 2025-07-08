@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Pribadi;
-use App\Models\Pribados;
 use App\Models\Pribasos;
 use App\Models\Spesialis;
 use App\Models\User;
@@ -29,21 +28,19 @@ class PribasosController extends Controller
     {
         $validate = $request->validate([
             'tanggal' => 'required|max:150',
+            'jenis_konseling' => 'required|max:255',
             'permasalahan' => 'required|max:255',
             'penyelesaian' => 'required|max:255',
-            'id_guru' => 'required',
             'id_siswa' => 'required',
-            'id_pelanggaran' => 'required',
         ]);
 
-        $pribados = Pribasos::create([
+        $pribasos = Pribasos::create([
 
             'tanggal' => $validate['tanggal'],
+            'jenis_konseling' => $validate['jenis_konseling'],
             'permasalahan' => $validate['permasalahan'],
             'penyelesaian' => $validate['penyelesaian'],
-            'id_guru' => $validate['id_guru'],
             'id_siswa' => $validate['id_siswa'],
-            'id_pelanggaran' => $validate['id_pelanggaran'],
         ]);
 
         $notification = array(
@@ -51,36 +48,34 @@ class PribasosController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('pribados.index')->with($notification);
+        return redirect()->route('pribasos.index')->with($notification);
     }
 
-    public function edit(string $id_pribadi, string $id)
+    public function edit(string $id)
     {
-        $data['pribados'] = Pribasos::findOrFail($id_pribadi);
-        return view('pribados.edit', $data);
+        $pribasos = Pribasos::findOrFail($id);
+        return view('pribasos.edit', compact('pribasos'));
     }
 
-    public function update(Request $request, string $id_pribadi)
+    public function update(Request $request, string $id_pribasos)
     {
 
         $validate = $request->validate([
             'tanggal' => 'required|max:150',
+            'jenis_konseling' => 'required|max:255',
             'permasalahan' => 'required|max:255',
             'penyelesaian' => 'required|max:255',
-            'id_guru' => 'required',
             'id_siswa' => 'required',
-            'id_pelanggaran' => 'required',
         ]);
 
-        $pribados = Pribasos::findOrFail($id_pribadi);
+        $pribasos = Pribasos::findOrFail($id_pribasos);
 
-        $pribados->update([
+        $pribasos->update([
             'tanggal' => $validate['tanggal'],
+            'jenis_konseling' => $validate['jenis_konseling'],
             'permasalahan' => $validate['permasalahan'],
             'penyelesaian' => $validate['penyelesaian'],
-            'id_guru' => $validate['id_guru'],
             'id_siswa' => $validate['id_siswa'],
-            'id_pelanggaran' => $validate['id_pelanggaran'],
         ]);
 
         $notificaton = array(
@@ -88,19 +83,19 @@ class PribasosController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('pribados.index')->with($notificaton);
+        return redirect()->route('pribasos.index')->with($notificaton);
     }
-    public function destroy(string $id_pribadi)
+    public function destroy(string $id_pribasos)
     {
-        $pribados = Pribasos::findOrFail($id_pribadi);
+        $pribasos = Pribasos::findOrFail($id_pribasos);
 
-        $pribados->delete();
+        $pribasos->delete();
 
         $notificaton = array(
             'message' => 'Data BK-Pribadi/Sosial berhasil dihapus',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('pribados.index')->with($notificaton);
+        return redirect()->route('pribasos.index')->with($notificaton);
     }
 }

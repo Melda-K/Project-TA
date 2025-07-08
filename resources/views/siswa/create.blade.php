@@ -16,7 +16,7 @@
                     <div class="max-w-xl">
                         <x-input-label for="nis" value="NIS" />
                         <x-text-input id="nis" type="text" name="nis" class="mt-1 block w-full" value="{{ old('nis')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nip')" />
+                        <x-input-error class="mt-2" :messages="$errors->get('nis')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="ttl" value="TEMPAT TANGGAL LAHIR" />

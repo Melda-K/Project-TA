@@ -7,31 +7,21 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('pelanggaran.store') }}" enctype="multipart/form-data"
+                <form method="post" action="{{ route('karier.store') }}" enctype="multipart/form-data"
                     class="mt-6 space-y-6">
                     @csrf
-
-                    @csrf
-                    <div class="max-w-xl">
-                        @php
-                        use App\Models\Guru;
-                        $guru = Guru::where('jabatan', 'LIKE', '%Wali Kelas%')->get();
-                        @endphp
-
-                        <x-input-label for="id_guru" value="NAMA WALI KELAS" />
-                        <select id="id_guru" name="id_guru" class="block rounded-lg w-full" required>
-                            <option value="">Pilih Wali Kelas</option>
-                            @foreach ($guru as $item)
-                            <option value="{{ $item->id_guru }}">{{ $item->nama_guru }}</option>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <div class="max-w-xl">
                         <x-input-label for="tanggal" value="TANGGAL" />
                         <x-text-input id="tanggal" type="date" name="tanggal" class="mt-1 block w-full" value="{{ old('tanggal')}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                     </div>
+                    <div class="max-w-xl">
+                        <x-input-label for="nis" value="NIS" />
+                        <x-text-input id="nis" type="text" name="nis" class="mt-1 block w-full" value="{{ old('nis')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('nis')" />
+                    </div>
+
                     @php
                     use App\Models\Siswa;
                     $siswas = Siswa::all();
@@ -43,6 +33,7 @@
                         <option value="{{ $siswa->id_siswa }}">{{ $siswa->nama_siswa }}</option>
                         @endforeach
                     </select>
+
                     <div class="max-w-xl">
                         <x-input-label for="kelas" value="KELAS" />
                         <x-select-input id="kelas" name="kelas" class="mt-1 block w-full" required>
@@ -69,20 +60,25 @@
                             <option value="XII APAT" {{ old('kelas') === 'XII' ? 'selected' : '' }}>XII APAT</option>
                         </x-select-input>
                     </div>
+
                     <div class="max-w-xl">
-                        <x-input-label for="point_pelanggaran" value="NOMOR POIN PELANGGARAN" />
-                        <x-text-input id="point_pelanggaran" type="text" name="point_pelanggaran" class="mt-1 block w-full" value="{{ old('point_pelanggaran')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('point_pelanggaran')" />
+                        <x-input-label for="kampus" value="KAMPUS" />
+                        <x-text-input id="kampus" type="text" name="kampus" class="mt-1 block w-full" value="{{ old('kampus')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('kampus')" />
                     </div>
                     <div class="max-w-xl">
-                        <x-input-label for="jmlh_pelanggaran" value="JUMLAH POIN PELANGGARAN" />
-                        <x-text-input id="jmlh_pelanggaran" type="text" name="jmlh_pelanggaran" class="mt-1 block w-full" value="{{ old('jmlh_pelanggaran')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('jmlh_pelanggaran')" />
+                        <x-input-label for="prodi" value="PROGRAM STUDI" />
+                        <x-text-input id="prodi" type="text" name="prodi" class="mt-1 block w-full" value="{{ old('prodi')}}" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('prodi')" />
                     </div>
                     <div class="max-w-xl">
                         <x-input-label for="keterangan" value="KETERANGAN" />
-                        <x-text-input id="keterangan" type="text" name="keterangan" class="mt-1 block w-full" value="{{ old('keterangan')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('keterangan')" />
+                        <x-select-input id="keterangan" name="keterangan" class="mt-1 block w-full" required>
+                            <option value="">Pilih Keterangan</option>
+                            <option value="SNBP" {{ old('keterangan') === 'SNBP' ? 'selected' : '' }}>Seleksi Nasional Berdasarkan Prestasi (SNBP)</option>
+                            <option value="SNBT" {{ old('keterangan') === 'SNBT' ? 'selected' : '' }}>Seleksi Nasional Berdasarkan Tes (SNBT)</option>
+                            <option value="MANDIRI" {{ old('keterangan') === 'MANDIRI' ? 'selected' : '' }}>Seleksi Mandiri</option>
+                        </x-select-input>
                     </div>
                     <div class="modal-footer">
                         <x-secondary-button tag="a" data-bs-dismiss="modal">Batal</x-secondary-button>

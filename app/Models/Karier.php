@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Pribasos extends Model
+class Karier extends Model
 {
-      use HasFactory;
-    protected $table='pribasoss';
-    protected $primaryKey = 'id_pribasos';
+    use HasFactory;
+    protected $table = 'kariers';
+    protected $primaryKey = 'id_karier';
 
     protected $fillable = [
 
         'tanggal',
-        'jenis_konseling',
-        'permasalahan',
-        'penyelesaian',
+        'kampus',
+        'prodi',
+        'keterangan',
         'id_siswa',
     ];
 
-     public function siswa(): BelongsTo
+    public function siswa(): BelongsTo
     {
         return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
     }

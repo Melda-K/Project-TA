@@ -6,18 +6,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('pribasos.store') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
+                <form method="post" action="{{ route('pribasos.store') }}" enctype="multipart/form-data"
+                    class="mt-6 space-y-6">
                     @csrf
+
                     <div class="max-w-xl">
                         <x-input-label for="tanggal" value="TANGGAL" />
                         <x-text-input id="tanggal" type="date" name="tanggal" class="mt-1 block w-full" value="{{ old('tanggal')}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                     </div>
+
                     <div class="max-w-xl">
-                        <x-input-label for="nama_siswa" value="NAMA SISWA" />
-                        <x-text-input id="nama_siswa" type="text" name="nama_siswa" class="mt-1 block w-full" value="{{ old('nama_siswa')}}" required />
-                        <x-input-error class="mt-2" :messages="$errors->get('nama_siswa')" />
+                        <x-input-label for="jenis_konseling" value=" JENIS BK" />
+                        <x-select-input id="jenis_konseling" name="jenis_konseling" class="mt-1 block w-full" required aria-autocomplete>
+                            <option value="">Pilih Jenis Konseling</option>
+                            <option value="Pribadi" {{ old('jenis_konseling') === 'Pribadi' ? 'selected' : '' }}>Pribadi</option>
+                            <option value="Sosial" {{ old('jenis_konseling') === 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                        </x-select-input>
                     </div>
+
+                    @php
+                    use App\Models\Siswa;
+                    $siswas = Siswa::all();
+                    @endphp
+                    <x-input-label for="id_siswa" value="NAMA SISWA" />
+                    <select id="id_siswa" name="id_siswa" class="mt-1 block w-full rounded-md" required>
+                        <option value="">Pilih Siswa</option>
+                        @foreach ($siswas as $siswa)
+                        <option value="{{ $siswa->id_siswa }}">{{ $siswa->nama_siswa }}</option>
+                        @endforeach
+                    </select>
+
                     <div class="max-w-xl">
                         <x-input-label for="kelas" value="KELAS" />
                         <x-select-input id="kelas" name="kelas" class="mt-1 block w-full" required>
@@ -44,16 +63,19 @@
                             <option value="XII APAT" {{ old('kelas') === 'XII' ? 'selected' : '' }}>XII APAT</option>
                         </x-select-input>
                     </div>
+
                     <div class="max-w-xl">
                         <x-input-label for="permasalahan" value="PERMASALAHAN" />
                         <x-text-input id="permasalahan" type="text" name="permasalahan" class="mt-1 block w-full" value="{{ old('permasalahan')}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('permasalahan')" />
                     </div>
+
                     <div class="max-w-xl">
                         <x-input-label for="penyelesaian" value="PENYELESAIAN" />
                         <x-text-input id="penyelesaian" type="text" name="penyelesaian" class="mt-1 block w-full" value="{{ old('penyelesaian')}}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('penyelesaian')" />
                     </div>
+
                     <div class="modal-footer">
                         <x-secondary-button tag="a" data-bs-dismiss="modal">Batal</x-secondary-button>
                         <x-primary-button name="save" value="true">Simpan</x-primary-button>

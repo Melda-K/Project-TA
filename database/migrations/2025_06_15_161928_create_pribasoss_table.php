@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('priadis', function (Blueprint $table) {
-            $table->increments('id_pribadi');
+        Schema::create('pribasoss', function (Blueprint $table) {
+            $table->increments('id_pribasos');
             $table->date('tanggal');
+            $table->string('jenis_konseling', 255);
             $table->string('permasalahan', 255);
             $table->string('penyelesaian', 255);
-            $table->unsignedInteger('id_guru');
-            $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('id_siswa');
             $table->foreign('id_siswa')->references('id_siswa')->on('siswas')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedInteger('id_pelanggaran');
-            $table->foreign('id_pelanggaran')->references('id_pelanggaran')->on('pelanggarans')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

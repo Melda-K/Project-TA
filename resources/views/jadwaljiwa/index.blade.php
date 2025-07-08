@@ -6,7 +6,13 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('JADWAL SPESIALIS KEJIWAAN') }}
+            @if (Auth::user()->hasRole('Siswa'))
+            {{ __('JADWAL KONSELING SPESIALIS') }}
+            @elseif (Auth::user()->hasRole('Guru BK'))
+            {{ __('JADWAL KONSELING SPESIALIS') }}
+            @elseif (Auth::user()->hasRole('Wali Kelas'))
+            {{ __('JADWAL KONSELING SPESIALIS') }}
+            @endif
         </h2>
     </x-slot>
 
@@ -14,7 +20,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+
+                    @hasanyrole('Admin|Spesialis')
                     <button type="button" class="btn btn-outline-warning m-4" data-bs-toggle="modal" data-bs-target="#tambahModal">TAMBAH DATA</button>
+                    @endhasrole
+
                     <x-table :tableId="'myTable_' . uniqid()">
                         <x-slot name="header">
                             <tr class="bg-gray-400 text-center">

@@ -6,17 +6,73 @@ use App\Models\Guru;
 use App\Models\Pelanggaran;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PelanggaranController extends Controller
 {
 
     public function index()
     {
-        $pelanggaran = Pelanggaran::all();
-        
-        $data['pelanggarans'] = Pelanggaran::where('id_pelanggaran', $pelanggaran->id_pelanggaran)->orderBy('id_siswa')->get();
-        return view('pelanggaran.index', $data);
+        $userId = Auth::id();
+
+        if (Auth::check()) {
+            $userRole = Auth::user()->roles->first()->name;
+
+            if ($userRole == 'Siswa') {
+                $siswa = Siswa::where('id_user', $userId)->first();
+
+                if ($siswa) {
+                    $pelanggaran = Pelanggaran::with('siswa', 'guru')
+                        ->select(
+                            'pelanggarans.id_pelanggaran',
+                            'pelanggarans.id_siswa',
+                            'pelanggarans.id_guru',
+                            'pelanggarans.tanggal',
+                            'pelanggarans.point_pelanggaran',
+                            'pelanggarans.keterangan',
+                            'pelanggarans.jmlh_pelanggaran',
+                            'pelanggarans.saldo_pelanggaran'
+                        )
+                        ->join(DB::raw('(
+                    SELECT id_siswa, MAX(id_pelanggaran) as max_id
+                    FROM pelanggarans
+                    GROUP BY id_siswa
+                    ) as p2'), function ($join) {
+                            $join->on('pelanggarans.id_pelanggaran', '=', 'p2.max_id');
+                        })
+                        ->get();
+
+                    $data['pelanggarans'] = $pelanggaran;
+                    return view('pelanggaran.index', $data);
+                }
+            } else {
+                $pelanggaran = Pelanggaran::with('siswa', 'guru')
+                    ->select(
+                        'pelanggarans.id_pelanggaran',
+                        'pelanggarans.id_siswa',
+                        'pelanggarans.id_guru',
+                        'pelanggarans.tanggal',
+                        'pelanggarans.point_pelanggaran',
+                        'pelanggarans.keterangan',
+                        'pelanggarans.jmlh_pelanggaran',
+                        'pelanggarans.saldo_pelanggaran'
+                    )
+                    ->join(DB::raw('(
+                    SELECT id_siswa, MAX(id_pelanggaran) as max_id
+                    FROM pelanggarans
+                    GROUP BY id_siswa
+                    ) as p2'), function ($join) {
+                        $join->on('pelanggarans.id_pelanggaran', '=', 'p2.max_id');
+                    })
+                    ->get();
+
+                $data['pelanggarans'] = $pelanggaran;
+                return view('pelanggaran.index', $data);
+            }
+        }
     }
+
 
     public function create()
     {

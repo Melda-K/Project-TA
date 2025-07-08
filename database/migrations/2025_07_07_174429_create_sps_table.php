@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('belajars', function (Blueprint $table) {
-            $table->increments('id_belajar');
+        Schema::create('sps', function (Blueprint $table) {
+            $table->increments('id_sp');
             $table->date('tanggal');
-            $table->string('permasalahan', 255);
-            $table->string('mapel', 255);
-            $table->string('keterangan', 255)->nullable();
-            $table->unsignedInteger('id_guru');
-            $table->foreign('id_guru')->references('id_guru')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedInteger('id_siswa');
+            $table->string('jenis_sp', 50);
+            $table->string('dokumen_sp');
+            $table->integer('id_siswa')->unsigned();
             $table->foreign('id_siswa')->references('id_siswa')->on('siswas')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('belajars');
+        Schema::dropIfExists('sps');
     }
 };
