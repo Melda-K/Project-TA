@@ -20,7 +20,7 @@
                     $siswas = Siswa::all();
                     @endphp
                     <x-input-label for="id_siswa" value="NAMA SISWA" />
-                    <select id="id_siswa" name="id_siswa" class="mt-1 block w-full" required>
+                    <select id="id_siswa" name="id_siswa" class="mt-1 block w-full rounded-md" required>
                         <option value="">Pilih Siswa</option>
                         @foreach ($siswas as $siswa)
                         <option value="{{ $siswa->id_siswa }}">{{ $siswa->nama_siswa }}</option>
